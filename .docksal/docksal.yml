@@ -22,7 +22,10 @@ services:
       - io.docksal.permanent=${SANDBOX_PERMANENT:-false}
   cli:
     image: ${COMPOSE_PROJECT_NAME_SAFE}_cli
-    build: services/cli
+    build:
+      dockerfile: services/cli/Dockerfile
+      args:
+        - CLI_IMAGE=${CLI_IMAGE}
     volumes:
       - ${PROJECT_ROOT}/${DOCROOT}:/app:ro
       - ${PROJECT_ROOT}/../server:/server:ro
@@ -33,7 +36,6 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-user}
       - POSTGRES_HOST=${POSTGRES_HOST:-db}
       - PGSQL_PORT_MAPPING=${PGSQL_PORT_MAPPING:-5432}
-      - CLI_IMAGE=${CLI_IMAGE}
     labels:
       - io.docksal.virtual-host=cli.${VIRTUAL_HOST}
   db:

@@ -1,6 +1,6 @@
 ARG CLI_IMAGE
 
-FROM docksal/cli:php8.3
+FROM ${CLI_IMAGE}
 
 # Install additional apt packages
 RUN set -xe; \
