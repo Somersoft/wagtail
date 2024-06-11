@@ -31,5 +31,5 @@ EXPOSE 8000
 
 WORKDIR /app
 
-ENTRYPOINT ["/entrypoint"]`
+ENTRYPOINT ["/entrypoint"]
 
