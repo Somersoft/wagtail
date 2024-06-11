@@ -1,0 +1,51 @@
+services:
+  wagtail:
+    image: ${COMPOSE_PROJECT_NAME_SAFE}_wagtail
+    build: services/wagtail
+    command: /start
+    volumes:
+      - ${PROJECT_ROOT}/${DOCROOT}:/app:ro
+      - ${PROJECT_ROOT}/../server:/server:ro
+      - ${PROJECT_ROOT}/../data:/data:rw
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-default}
+      - POSTGRES_USER=${POSTGRES_USER:-user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-user}
+      - POSTGRES_HOST=${POSTGRES_HOST:-db}
+      - PGSQL_PORT_MAPPING=${PGSQL_PORT_MAPPING:-5432}
+      - VIRTUAL_HOST
+    labels:
+      - io.docksal.virtual-host=${VIRTUAL_HOST},*.${VIRTUAL_HOST},${VIRTUAL_HOST}.*
+      - io.docksal.virtual-port=8000
+      - io.docksal.cert-name=${VIRTUAL_HOST_CERT_NAME:-none}
+      - io.docksal.project-root=${PROJECT_ROOT}
+      - io.docksal.permanent=${SANDBOX_PERMANENT:-false}
+  cli:
+    image: ${COMPOSE_PROJECT_NAME_SAFE}_cli
+    build: services/cli
+    volumes:
+      - ${PROJECT_ROOT}/${DOCROOT}:/app:ro
+      - ${PROJECT_ROOT}/../server:/server:ro
+      - ${PROJECT_ROOT}/../data:/data:rw
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-default}
+      - POSTGRES_USER=${POSTGRES_USER:-user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-user}
+      - POSTGRES_HOST=${POSTGRES_HOST:-db}
+      - PGSQL_PORT_MAPPING=${PGSQL_PORT_MAPPING:-5432}
+      - CLI_IMAGE=${CLI_IMAGE}
+    labels:
+      - io.docksal.virtual-host=cli.${VIRTUAL_HOST}
+  db:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: pgsql
+    volumes:
+      - ${PROJECT_ROOT}/../server:/var/server:ro
+      - ${PROJECT_ROOT}/../data:/var/data:rw
+  mail:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: mail
+    labels:
+      - io.docksal.virtual-host=webmail.${VIRTUAL_HOST}
