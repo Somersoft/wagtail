@@ -26,6 +26,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'wagtail.contrib.forms',                  # new
+    'wagtail.contrib.redirects',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail',
+
+    'modelcluster',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -36,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'wagtail_app.urls'
@@ -92,7 +108,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = str(BASE_DIR / 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = str(BASE_DIR / 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -110,10 +130,25 @@ SECRET_KEY = 'django-insecure-i6i5gb@vf2!&07$#h$mp3tmb)&6!bzwce!bg4=6hm43(9=y=k7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
- os.environ['VIRTUAL_HOST']
-]
+ALLOWED_HOSTS = [os.environ['VIRTUAL_HOST']]
 
+CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['VIRTUAL_HOST']]
+
+CSRF_COOKIE_DOMAIN = os.environ['VIRTUAL_HOST']
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_REPLACE_HTTPS_REFERER = True
+
+CORS_ORIGIN_WHITELIST = (
+    'https://front.bluemix.net/',
+    'front.bluemix.net',
+    'bluemix.net',
+)
 
 DATABASES = {
     'default': {
@@ -121,3 +156,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+WAGTAIL_SITE_NAME = 'Wagtail Template'
+
+WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL", "http://localhost:8000")

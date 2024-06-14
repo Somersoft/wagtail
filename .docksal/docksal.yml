@@ -13,10 +13,11 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-user}
       - POSTGRES_HOST=${POSTGRES_HOST:-db}
       - PGSQL_PORT_MAPPING=${PGSQL_PORT_MAPPING:-5432}
+      - WAGTAILADMIN_BASE_URL=${VIRTUAL_HOST}:${VIRTUAL_HOST_PORT:-8000}
       - VIRTUAL_HOST
     labels:
       - io.docksal.virtual-host=${VIRTUAL_HOST},*.${VIRTUAL_HOST},${VIRTUAL_HOST}.*
-      - io.docksal.virtual-port=8000
+      - io.docksal.virtual-port=${VIRTUAL_HOST_PORT:-8000}
       - io.docksal.cert-name=${VIRTUAL_HOST_CERT_NAME:-none}
       - io.docksal.project-root=${PROJECT_ROOT}
       - io.docksal.permanent=${SANDBOX_PERMANENT:-false}
@@ -36,6 +37,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-user}
       - POSTGRES_HOST=${POSTGRES_HOST:-db}
       - PGSQL_PORT_MAPPING=${PGSQL_PORT_MAPPING:-5432}
+      - WAGTAILADMIN_BASE_URL=${VIRTUAL_HOST}:${VIRTUAL_HOST_PORT:-8000}
     labels:
       - io.docksal.virtual-host=cli.${VIRTUAL_HOST}
   db:
