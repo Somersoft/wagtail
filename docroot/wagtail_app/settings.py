@@ -13,9 +13,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-global BASE_DIR
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Application definition
 
@@ -27,7 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'wagtail.contrib.forms',                  # new
+    'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
     'wagtail.sites',
@@ -145,18 +143,28 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_REPLACE_HTTPS_REFERER = True
 
 CORS_ORIGIN_WHITELIST = (
-    'https://front.bluemix.net/',
-    'front.bluemix.net',
-    'bluemix.net',
+    os.environ['VIRTUAL_HOST']
 )
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ['POSTGRES_DB'],
+        "USER": os.environ['POSTGRES_USER'],
+        "PASSWORD": os.environ['POSTGRES_PASSWORD'],
+        "HOST": os.environ['POSTGRES_HOST'],
+        "PORT": os.environ['PGSQL_PORT_MAPPING'],
     }
 }
 
 WAGTAIL_SITE_NAME = 'Wagtail Template'
 
 WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL", "http://localhost:8000")
+
+# Django Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail'
+EMAIL_PORT = '1025'
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
