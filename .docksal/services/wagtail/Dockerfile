@@ -1,4 +1,6 @@
-FROM python:3.10-slim-buster
+ARG PYTHON_IMAGE
+
+FROM ${PYTHON_IMAGE}
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -19,11 +21,11 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 COPY ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
 
-COPY ./entrypoint /entrypoint
+COPY ./services/wagtail/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
 
-COPY ./start /start
+COPY ./services/wagtail/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 

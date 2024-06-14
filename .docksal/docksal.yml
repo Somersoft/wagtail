@@ -1,7 +1,10 @@
 services:
   wagtail:
     image: ${COMPOSE_PROJECT_NAME_SAFE}_wagtail
-    build: services/wagtail
+    build:
+      dockerfile: services/wagtail/Dockerfile
+      args:
+        - PYTHON_IMAGE=${PYTHON_IMAGE:-python:3.10-slim-buster}
     command: /start
     volumes:
       - ${PROJECT_ROOT}/${DOCROOT}:/app:ro
