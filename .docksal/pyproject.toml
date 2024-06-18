@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "wagtail_app"
+version = "0.1.0"
+description = ""
+authors = ["Andrew Crook (Somersoft) <andrew.crook@somersoft.co.uk>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+Django = "^5.0.6"
+python = "^3.11"
+psycopg2-binary = "^2.9.9"
+poethepoet = "^0.26.1"
+wagtail = "^6.1.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
