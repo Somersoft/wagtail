@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["Andrew Crook (Somersoft) <andrew.crook@somersoft.co.uk>"]
 readme = "README.md"
-package-mode = false
 
 [tool.poetry.dependencies]
 Django = "^5.0.6"
