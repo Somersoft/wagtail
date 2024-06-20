@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-## run eslint
-##
-## Usage: fin eslint
-
-fin docker run --rm -v ${PROJECT_ROOT}:/app mparker17/eslint-es6-drupal "src/modules/**/*.js"

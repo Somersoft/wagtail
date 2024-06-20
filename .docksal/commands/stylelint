@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-## run stylelint
-##
-## Usage: fin stylelint
-
-fin docker run -it --rm -v ${PROJECT_ROOT}:/app stylelint src/modules/**/*.css
