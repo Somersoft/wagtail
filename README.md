@@ -4,16 +4,16 @@ This template provides a starting point for developers, who already use
 Docksal, to have a hosting environment to develop websites based upon python and
 Wagtail CMS. 
 
-This template show how to add python the list of server side language as well
-as PHP and JavaScript family.
+This template show how to add python the list of supported server side languages
+as well as PHP and the JavaScript family.
 
 Docksal has an aim of providing zero configuration hosting environment which
 can be customised and extended with a low software management overhead.
 
 Under [performance](https://docs.wagtail.org/en/stable/advanced_topics/performance.html)
-Wagtail documentation makes reference to using [Redis](https://redis.io/) and
-[Memcache](https://memcached.org/) services which are both supported by Docksal.
-See [redis](https://docs.docksal.io/service/other/redis/) and
+the Wagtail documentation makes reference to using [Redis](https://redis.io/)
+and [Memcache](https://memcached.org/) services which are both supported by
+Docksal. See [redis](https://docs.docksal.io/service/other/redis/) and
 [memcached](https://docs.docksal.io/service/other/memcached/).
 Wagtail also indicates that it can work using [MySQL](https://www.mysql.com/)
 database and Docksal supports this by default.
