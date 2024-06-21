@@ -10,7 +10,7 @@ as PHP and JavaScript family.
 Docksal has an aim of providing zero configuration hosting environment which
 can be customised and extended with a low software management overhead.
 
-Under [proformance](https://docs.wagtail.org/en/stable/advanced_topics/performance.html)
+Under [performance](https://docs.wagtail.org/en/stable/advanced_topics/performance.html)
 Wagtail documentation makes reference to using [Redis](https://redis.io/) and
 [Memcache](https://memcached.org/) services which are both supported by Docksal.
 See [redis](https://docs.docksal.io/service/other/redis/) and
