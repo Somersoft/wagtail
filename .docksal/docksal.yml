@@ -1,13 +1,15 @@
 services:
   wagtail:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: cli
     image: ${COMPOSE_PROJECT_NAME_SAFE}_wagtail
     build:
       dockerfile: services/wagtail/Dockerfile
       args:
-        - PYTHON_IMAGE=${PYTHON_IMAGE:-python:3.11-slim-buster}
-    command: /start
+        - CLI_IMAGE=${CLI_IMAGE}
+    command: ["/start"]
     volumes:
-      - ${PROJECT_ROOT}/${DOCROOT}:/app:ro
       - ${PROJECT_ROOT}/../server:/server:ro
       - ${PROJECT_ROOT}/../data:/data:rw
     environment:
@@ -17,7 +19,6 @@ services:
       - POSTGRES_HOST=${POSTGRES_HOST:-db}
       - PGSQL_PORT_MAPPING=${PGSQL_PORT_MAPPING:-5432}
       - WAGTAILADMIN_BASE_URL=${VIRTUAL_HOST}:${VIRTUAL_HOST_PORT:-8000}
-      - VIRTUAL_HOST
     labels:
       - io.docksal.virtual-host=${VIRTUAL_HOST},*.${VIRTUAL_HOST},${VIRTUAL_HOST}.*
       - io.docksal.virtual-port=${VIRTUAL_HOST_PORT:-8000}
@@ -31,7 +32,6 @@ services:
       args:
         - CLI_IMAGE=${CLI_IMAGE}
     volumes:
-      - ${PROJECT_ROOT}/${DOCROOT}:/app:ro
       - ${PROJECT_ROOT}/../server:/server:ro
       - ${PROJECT_ROOT}/../data:/data:rw
     environment:

@@ -4,9 +4,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-# poetry install
-# PYTHONPATH=`poetry env info | grep Path | head -1 | awk '{print $2}'`/lib/python3.11/site-packages
-# export PYTHONPATH
+cd /var/www/${DOCROOT}
 
-python manage.py migrate
-python manage.py runserver 0.0.0.0:8000
+python3 manage.py migrate
+python3 manage.py runserver 0.0.0.0:8000
