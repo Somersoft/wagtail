@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+#: exec_target = wagtail
+## Runs poetry install on wagtail container as the python libraries are not shared.
+## Usage: fin sync_wagtail_libraries
+
+cd /var/www/
+/home/docker/.local/bin/poetry install
