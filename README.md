@@ -1,4 +1,4 @@
-# Python/Wagtail template Using Docksal
+# Python/Wagtail Docksal template
 
 This template provides a starting point for developers, who already use
 Docksal, to have a hosting environment to develop websites based upon python and
