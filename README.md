@@ -4,11 +4,12 @@ This template provides a starting point for developers, who already use or are
 thinking of using Docksal, to have a hosting environment to develop websites
 based upon python and Wagtail CMS. 
 
-This template show how to add python the list of supported server side languages
+This template shows how to add python the list of supported server side languages
 as well as PHP and the JavaScript family.
 
-Docksal has an aim of providing zero configuration hosting environment which
-can be customised and extended with a low software management overhead.
+Docksal has an aim of providing zero configuration hosting environment for
+developers which can be customised and extended with a low software management
+overhead.
 
 Under [performance](https://docs.wagtail.org/en/stable/advanced_topics/performance.html)
 the Wagtail documentation makes reference to using [Redis](https://redis.io/)
@@ -33,6 +34,17 @@ For example to create a Wagtail Superuser account
 fin manage.py createsuperuser
 ```
 and follow the prompts.
+
+# Python library management
+
+This template installs [poetry](https://python-poetry.org/) and
+[poethepoet](https://poethepoet.natn.io/index.html) to help with managing the
+external python libraries and as a task runner.
+It is recommended to use [pyproject.toml](./pyproject.toml) file to manage these
+libraries and project task. 
+
+The base install python libraries are controlled by this [pyproject.toml](./.docksal/base/pyproject.toml)
+can be overwritten by the PROJECT_ROOT file.
 
 # Contributors
 
