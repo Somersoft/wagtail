@@ -24,13 +24,13 @@ A Docksal command is available to make available the Django and Wagtail cli
 commands. See the following command for more information.  
 
 ``` shell
-fin manage help
+fin manage.py help
 ```
 
 For example to create a Wagtail Superuser account
 
 ``` shell
-fin manage createsuperuser
+fin manage.py createsuperuser
 ```
 and follow the prompts.
 
