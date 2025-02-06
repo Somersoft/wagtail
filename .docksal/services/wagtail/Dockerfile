@@ -1,16 +1,15 @@
-ARG CLI_IMAGE
+ARG PYTHON_IMAGE
 
-FROM ${CLI_IMAGE}
+FROM ${PYTHON_IMAGE}
 
-# Install additional apt packages
-RUN set -xe; \
-    apt-get update >/dev/null; \
-    apt-get -y --no-install-recommends install >/dev/null \
-    postgresql-client \
-    pipx \
-    python3.poetry \
-    # Cleanup
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Install additional apt packages for bookworm distribution
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
+		postgresql-client \
+		python3-poetry \
+	; \
+	rm -rf /var/lib/apt/lists/*
 
 # Install base python libraries.
 COPY ./base/pyproject.toml /pyproject.toml
@@ -20,15 +19,11 @@ RUN /usr/bin/poetry install
 ENV _PYTHON_VERSION=3.11
 # ENV _PYTHON_VENV_PATH=`poetry env info --path`;
 # ENV PYTHONPATH=$_PYTHON_VENV_PATH/lib/python$_PYTHON_VERSION/site-packages
-ENV PYTHONPATH=/home/docker/.cache/pypoetry/virtualenvs/wagtail-app-il7asoJj-py$_PYTHON_VERSION/lib/python$_PYTHON_VERSION/site-packages
+ENV PYTHONPATH=/root/.cache/pypoetry/virtualenvs/wagtail-app-il7asoJj-py$_PYTHON_VERSION/lib/python$_PYTHON_VERSION/site-packages
 
-COPY ./services/wagtail/entrypoint /entrypoint
+COPY --chmod=777 ./services/wagtail/entrypoint ./services/wagtail/start /
 RUN sed -i 's/\r$//g' /entrypoint
-RUN chmod +x /entrypoint
-
-COPY ./services/wagtail/start /start
 RUN sed -i 's/\r$//g' /start
-RUN chmod +x /start
 
 EXPOSE 8000
 

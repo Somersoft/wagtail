@@ -7,7 +7,7 @@ services:
     build:
       dockerfile: services/wagtail/Dockerfile
       args:
-        - CLI_IMAGE=${CLI_IMAGE}
+        - PYTHON_IMAGE=${PYTHON_IMAGE}
     command: ["/start"]
     volumes:
       - ${PROJECT_ROOT}/../server:/server:ro
@@ -19,6 +19,7 @@ services:
       - POSTGRES_HOST=${POSTGRES_HOST:-db}
       - PGSQL_PORT_MAPPING=${PGSQL_PORT_MAPPING:-5432}
       - WAGTAILADMIN_BASE_URL=${VIRTUAL_HOST}:${VIRTUAL_HOST_PORT:-8000}
+      - PYTHON_IMAGE
     labels:
       - io.docksal.virtual-host=${VIRTUAL_HOST},*.${VIRTUAL_HOST},${VIRTUAL_HOST}.*
       - io.docksal.virtual-port=${VIRTUAL_HOST_PORT:-8000}
